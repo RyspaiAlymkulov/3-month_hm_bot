@@ -3,7 +3,6 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from config import bot
 
 
-# @dp.callback_query_handler(lambda call: call.data == "button_call_1")
 async def quiz_2(call: types.CallbackQuery):
     markup = InlineKeyboardMarkup()
     button_call_2 = InlineKeyboardButton("NEXT", callback_data='button_call_2')

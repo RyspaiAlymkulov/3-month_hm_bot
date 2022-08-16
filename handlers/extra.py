@@ -5,7 +5,7 @@ from config import bot, Dispatcher
 
 async def game(message: types.Message):
     if message.from_user.id:
-        games = ['🎲', '🏏', '⚽']
+        games = ['🎲', '🏏', '⚽', '🎰',  '⚾' '🏀', '🏒', '🤾', '🎳']
         if message.text.startswith('game'):
             await bot.send_message(message.chat.id, random.choice(games))
         if message.text.startswith('!pin'):
