@@ -6,6 +6,7 @@ from handlers import client, extra, callback, admin, echo, fsmAdminMenu
 
 
 client.register_handlers_client(dp)
+admin.register_handler_admin(dp)
 callback.register_handlers_callback(dp)
 fsmAdminMenu.register_handlers_fsm_menu(dp)
 extra.register_game_handler(dp)
