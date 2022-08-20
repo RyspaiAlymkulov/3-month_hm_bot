@@ -1,6 +1,7 @@
 from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ContentType, Message, InputFile
 from config import bot, dp
+from database.bot_db import sql_command_random
 
 
 async def start_handler(message: types.Message):
@@ -56,7 +57,12 @@ async def send_photo(message: Message):
     await dp.bot.send_photo(chat_id=chat_id, photo=photo_bytes3)
 
 
+async def show_random_menu(message: types.Message):
+    await sql_command_random(message)
+
+
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_handler, commands=['start', 'help'])
     dp.register_message_handler(quiz_1, commands=['quiz'])
     dp.register_message_handler(send_photo, commands=['mem'])
+    dp.register_message_handler(show_random_menu, commands=['get'])

@@ -1,5 +1,6 @@
 from aiogram import types, Dispatcher
 from config import bot, ADMIN
+from database.bot_db import sql_command_get_all_name
 
 
 async def ban(message: types.Message):
@@ -17,5 +18,15 @@ async def ban(message: types.Message):
         await message.reply("Пиши в группе!!!")
 
 
+async def distribution(message: types.Message):
+    if not message.from_user.id:
+        await message.reply("Ты не админ")
+    else:
+        result = await sql_command_get_all_name()
+        for name in result:
+            await bot.send_message(name[0], message.text[3:])
+
+
 def register_handlers_admin(dp: Dispatcher):
     dp.register_message_handler(ban, commands=['ban'], commands_prefix='!/')
+    dp.register_message_handler(distribution, commands=['R'])
