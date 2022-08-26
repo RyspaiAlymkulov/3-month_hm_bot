@@ -12,7 +12,7 @@ def sql_create():
         print("База данных подключена!")
 
     db.execute("CREATE TABLE IF NOT EXISTS fsmAdminMenu "
-               "(photo TEXT, name INTEGER PRIMARY KEY, "
+               "(photo TEXT, name TEXT, "
                "description TEXT, price INTEGER)")
     db.commit()
 
