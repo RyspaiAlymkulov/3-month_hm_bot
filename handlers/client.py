@@ -2,6 +2,8 @@ from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ContentType, Message, InputFile
 from config import bot, dp
 from database.bot_db import sql_command_random
+from dialogg import dialogbot
+from parser import films
 
 
 async def start_handler(message: types.Message):
@@ -61,8 +63,17 @@ async def show_random_menu(message: types.Message):
     await sql_command_random(message)
 
 
+async def parser_films(message: types.Message):
+    data = films.parser()
+    for i in data:
+        await bot.send_message(message.from_user.id,
+                               f"{i['title']}\n\n{i['link']}")
+
+
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_handler, commands=['start', 'help'])
     dp.register_message_handler(quiz_1, commands=['quiz'])
     dp.register_message_handler(send_photo, commands=['mem'])
     dp.register_message_handler(show_random_menu, commands=['get'])
+    # dp.register_message_handler(dialogg_flow, commands=['dialog'])
+    dp.register_message_handler(parser_films, commands=['films'])
