@@ -32,6 +32,3 @@
 #         await bot.send_message(message.from_user.id, response.query_result.fulfillment_text)
 #     else:
 #         await bot.send_message(message.from_user.id, "Я тебя не понимаю")
-#
-#
-#
