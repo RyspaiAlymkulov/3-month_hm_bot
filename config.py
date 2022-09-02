@@ -9,3 +9,4 @@ print(TOKEN)
 bot = Bot(TOKEN)
 dp = Dispatcher(bot=bot, storage=storage)
 ADMIN = 1383352235
+URL = "https://pythongeek2000.herokuapp.com/"

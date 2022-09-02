@@ -1,3 +1,5 @@
+from config import dp, URL, bot
+from decouple import config
 import asyncio
 import logging
 from aiogram.utils import executor
@@ -7,8 +9,13 @@ from database import bot_db
 
 
 async def on_startup(_):
+    await bot.set_webhook(URL)
     asyncio.create_task(notification.scheduler())
     bot_db.sql_create()
+
+
+async def on_shutdown(dp):
+    await bot.delete_webhook()
 
 
 client.register_handlers_client(dp)
@@ -24,4 +31,13 @@ echo.register_echo_message(dp)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
+    # executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
+    executor.start_webhook(
+        dispatcher=dp,
+        webhook_path="",
+        on_shutdown=on_shutdown,
+        on_startup=on_startup,
+        skip_updates=True,
+        host='0.0.0.0',
+        port=config("PORT", cast=int)
+    )
